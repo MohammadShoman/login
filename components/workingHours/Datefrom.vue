@@ -13,7 +13,7 @@
         day: 'numeric',
       }"
     ></b-form-datepicker>
-    {{value}}
+    <!-- {{value}} -->
   </div>
 </template>
 <script>
@@ -29,6 +29,7 @@ export default {
 <style>
 #datepicker-full-width {
   background-color: #ECEEF8;
+  width: 20%;
 }
 .btn .b-icon.bi,
 .nav-link .b-icon.bi,

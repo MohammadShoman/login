@@ -1,28 +1,18 @@
 <template>
   <div class="allparts">
-   
-    <div class="date-picker1">
-      <div class="part1"><Datefrom :value.sync="from" /></div>
-      <div>To</div>
-      <div class="part2">
-        <Datefrom :value.sync="to" />
-      </div>
-    </div>
-    <WorkingHour />
+    <DefualtWorkingHours />
     <div class="savebtn">
       <div><button class="btnSave" @click="workingHours">Save</button></div>
       <div><button class="btnCancel" @click="goTo">Cancel</button></div>
-
     </div>
   </div>
 </template>
 <script>
-import WorkingHour from "./WorkingHour.vue";
-import Datefrom from "./Datefrom.vue";
+import DefualtWorkingHours from "./DefualtWorkingHours.vue";
+
 export default {
   components: {
-    WorkingHour,
-    Datefrom,
+    DefualtWorkingHours,
   },
   data() {
     return {
@@ -31,30 +21,27 @@ export default {
       timeTo: "",
       from: "",
       to: "",
-      type:"custom"
+      type: "default",
     };
   },
   computed: {
-    getWorkingHours() {
-      return this.$store.getters.getWorkingHours;
+    getDefualtWorkingHours() {
+      return this.$store.getters.getDefualtWorkingHours;
     },
   },
 
   methods: {
     workingHours() {
       this.$store.dispatch("workingHour", {
-        objectOfDays: this.getWorkingHours,
-        fromDate: this.from,
-        toDate: this.to,
+        type: this.type,
+        defaultWorkingHours: this.getDefualtWorkingHours,
         token: this.$store.getters.getToken,
-        type:this.type,
       });
     },
   },
 };
 </script>
 <style>
-
 body {
   font-family: "Roboto", sans-serif;
   background-color: #f7f7f7;
@@ -129,27 +116,7 @@ label {
   align-content: center;
   text-align: center;
   align-items: center;
- 
-}
-.btnCancel{
-  border-radius: 20px;
-  border: 1px solid #868686;
-  background-color: white;
-  color: #868686;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 12px 45px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: transform 80ms ease-in;
-  font-family: "Montserrat";
-  width: 10%;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  text-align: center;
-  align-items: center;
-  
+  margin: 0 auto;
 }
 .savebtn {
   width: 70%;
@@ -158,10 +125,5 @@ label {
   margin: 0 auto;
   margin-bottom: 30px;
   height: 75px;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  text-align: center;
-  align-items: center;
 }
 </style>

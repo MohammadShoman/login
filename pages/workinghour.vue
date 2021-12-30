@@ -1,22 +1,81 @@
 <template>
   <div>
-    <Datepicker />
+    <div class="a">Kindly fill the information below</div>
+    <div class="workingHours-btn">
+      <b-button class="defualt" @click="defualt" variant="outline-primary"
+        >Defualt</b-button
+      >
+      <b-button class="custom" @click="custom" variant="outline-primary"
+        >Customize</b-button
+      >
+    </div>
+    <div v-if="customValue"><Datepicker /></div>
+    <div v-if="defualtValue"><DateDefualtPicker /></div>
   </div>
-</template>            
+</template>
 <script>
-import Datepicker from "../components/workingHours/datepicker.vue";
+import Datepicker from "../components/workingHours/Datepicker.vue";
+import DateDefualtPicker from "../components/workingHours/DateDefualtPicker.vue";
 
 export default {
   data() {
     return {
       value: "",
+      customValue:false,
+      defualtValue:true,
     };
   },
+  methods: {
+    defualt() {
+      this.customValue=false;
+      this.defualtValue=true;
+    },
+    custom() {
+      this.customValue=true;
+      this.defualtValue=false;
+    },
+  },
   props: {},
-  components: { Datepicker },
+  components: { Datepicker,DateDefualtPicker },
 };
 </script>
 <style>
+.a {
+  background-color: #0b5efc;
+  text-align: center;
+  color: white;
+  width: 70%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px auto;
+  border-radius: 5px;
+}
+.workingHours-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.custom {
+  background-color: #fff;
+  border-radius: 5px;
+  border: #fff;
+  color: #a09f9f;
+  font-weight: bolder;
+  border-radius: none;
+  width: 15%;
+  margin-left: 3px;
+}
+.defualt {
+  background-color: #fff;
+  border-radius: 5px;
+  border: #fff;
+  color: #a09f9f;
+  font-weight: bolder;
+  border-radius: none;
+  width: 15%;
+}
 #datepicker-full-width {
   background-color: #eceef8;
 }

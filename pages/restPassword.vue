@@ -8,6 +8,7 @@
           v-model="password"
           id="inline-form-input-username"
           placeholder="password"
+          maxlength="20"
         ></b-form-input>
       </b-input-group>
 
@@ -17,6 +18,7 @@
           v-model="confirm"
           id="inline-form-input-username"
           placeholder="confirm password"
+          maxlength="20"
         ></b-form-input>
       </b-input-group>
 

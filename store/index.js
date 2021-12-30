@@ -1,9 +1,7 @@
 import AppLanguage from "./modules/appLang";
 import Calendar from "./modules/calendar";
 import Login from "./modules/login";
-import DailyCalendar from "./modules/dailyCalendar";
-import DailyCalendarById from "./modules/dailyCalendarById";
-import CalendarWeeklyById from "./modules/calendarWeeklyById.js"
+
 import Vuex from "vuex";
 import createPersistedState from "vuex-persistedstate";
 import * as Cookies from 'js-cookie'
@@ -13,9 +11,6 @@ const createStore = () => {
       AppLanguage,
       Calendar,
       Login,
-      DailyCalendar,
-      DailyCalendarById,
-      CalendarWeeklyById
     },
     // plugins: [
     //   createPersistedState({
