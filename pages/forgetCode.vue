@@ -11,7 +11,7 @@
           v-model="code"
           id="inline-form-input-username"
           placeholder="code here"
-          
+          maxlength="20"
         ></b-form-input>
       </b-input-group>
       
@@ -91,7 +91,7 @@ export default {
         if (value > 0) {
           setTimeout(() => {
             this.timerCount = this.timerCount - 1;
-          }, 2000);
+          }, 1000);
         }
       },
       immediate: true,

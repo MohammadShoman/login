@@ -11,10 +11,14 @@ const Login = {
     resetMessage: "",
     codeMessage: "",
     username: "",
+    defaultWorkingHours:[],
   },
   mutations: {
     setWorkingHour(state, payload) {
       return (state.workingHours = payload.workingHours);
+    },
+    setDefaultWorkingHour(state, payload) {
+      return (state.defaultWorkingHours = payload.defaultWorkingHours);
     },
     getResetMessage(state, payload) {
       return (state.resetMessage = payload.resetMessage);
@@ -33,6 +37,12 @@ const Login = {
         workingHours: payload.workingHours,
       });
     },
+    changeDefaultWorkingHours(context, payload) {
+      console.log(payload, "hhhhuuuhuhuhuh");
+      context.commit("setDefaultWorkingHour", {
+        defaultWorkingHours: payload.defaultWorkingHours,
+      });
+    },
     async LOGIN(context, payload) {
       try {
         const result = await axios.post(
@@ -47,6 +57,7 @@ const Login = {
         document.cookie = `token=${result.data.token}`;
         console.log(result);
         context.state.tokenId = result.data.token;
+        
       } catch (err) {
         console.log(err);
         // console.log(error.response.status);
@@ -156,6 +167,9 @@ const Login = {
     },
     getWorkingHours(state) {
       return state.workingHours;
+    },
+    getDefualtWorkingHours(state) {
+      return state.defaultWorkingHours;
     },
     getResetPsswordMessage(state) {
       return state.resetMessage;

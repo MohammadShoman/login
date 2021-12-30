@@ -1,5 +1,5 @@
 <template>
-  <div>    
+  <div>
     <b-form class="forgetPassword">
       <label class="sr-only" for="inline-form-input-username">Username</label>
       <p class="enterUsername">Enter Your Username</p>
@@ -8,6 +8,7 @@
           v-model="username"
           id="inline-form-input-username"
           placeholder="enter username"
+          maxlength="20"
         ></b-form-input>
       </b-input-group>
 
@@ -24,7 +25,7 @@ export default {
   data() {
     return {
       username: "",
-      showMessage:false,
+      showMessage: false,
     };
   },
   computed: {
@@ -34,21 +35,21 @@ export default {
   },
   methods: {
     forget() {
-      console.log(this.username,"username"); 
+      console.log(this.username, "username");
       this.$store
         .dispatch("forgetPassword", {
           username: this.username,
         })
         .then((success) => {
           console.log(success);
-          this.showMessage=true
+          this.showMessage = true;
         })
         .catch((err) => {
           console.log(err);
-          this.showMessage=true
+          this.showMessage = true;
         });
-        
-        this.$store.dispatch("userName", {
+
+      this.$store.dispatch("userName", {
         username: this.username,
       });
     },
@@ -75,7 +76,7 @@ export default {
   width: 100px;
   margin-top: 25px;
 }
-.enterUsername{
-  margin-top:50px;
+.enterUsername {
+  margin-top: 50px;
 }
 </style>

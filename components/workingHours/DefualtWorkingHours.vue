@@ -54,45 +54,43 @@ import InputDay from "./InputDay.vue";
 export default {
   components: {
     InputDay,
-
   },
   updated() {
     this.editAllValue();
-    this.$store.dispatch("changeWorkingHours", {
-      workingHours: {
-        sun: { from: this.fromSun, to: this.toSun },
-        mon: { from: this.fromMon, to: this.toMon },
-        tue: { from: this.fromTue, to: this.toTue },
-        wed: { from: this.fromWed, to: this.toWed },
-        thu: { from: this.fromThu, to: this.toThu },
-        fri: { from: this.fromFri, to: this.toFri },
-        sat: { from: this.fromSat, to: this.toSat },
-      },
+    this.$store.dispatch("changeDefaultWorkingHours", {
+      defaultWorkingHours: [
+        { day: "sun", start_time: this.fromSun, end_time: this.toSun },
+        { day: "mon", start_time: this.fromMon, end_time: this.toMon },
+        { day: "tue", start_time: this.fromTue, end_time: this.toTue },
+        { day: "wed", start_time: this.fromWed, end_time: this.toWed },
+        { day: "thu", start_time: this.fromThu, end_time: this.toThu },
+        { day: "fri", start_time: this.fromFri, end_time: this.toFri },
+        { day: "sat", start_time: this.fromSat, end_time: this.toSat },
+      ],
     });
   },
 
-  methods:{
-clicked(){
-         if(this.bool){
-          this.bool=false;
-          (this.fromMon = ""),(this.toMon = "");
-          (this.fromTue = ""), (this.toTue = "");
-          (this.fromWed = ""), (this.toWed = "");
-          (this.fromThu = ""), (this.toThu = "");
-          (this.fromFri = ""), (this.toFri = "");
-          (this.fromSat = ""), (this.toSat = "");
-      }else{
-          this.bool=true;
-          (this.fromMon = this.fromSun),(this.toMon = this.toSun);
-          (this.fromTue = this.fromSun), (this.toTue = this.toSun);
-          (this.fromWed = this.fromSun), (this.toWed = this.toSun);
-          (this.fromThu = this.fromSun), (this.toThu = this.toSun);
-          (this.fromFri = this.fromSun), (this.toFri = this.toSun);
-          (this.fromSat = this.fromSun), (this.toSat = this.toSun);
+  methods: {
+    clicked() {
+      if (this.bool) {
+        this.bool = false;
+        (this.fromMon = ""), (this.toMon = "");
+        (this.fromTue = ""), (this.toTue = "");
+        (this.fromWed = ""), (this.toWed = "");
+        (this.fromThu = ""), (this.toThu = "");
+        (this.fromFri = ""), (this.toFri = "");
+        (this.fromSat = ""), (this.toSat = "");
+      } else {
+        this.bool = true;
+        (this.fromMon = this.fromSun), (this.toMon = this.toSun);
+        (this.fromTue = this.fromSun), (this.toTue = this.toSun);
+        (this.fromWed = this.fromSun), (this.toWed = this.toSun);
+        (this.fromThu = this.fromSun), (this.toThu = this.toSun);
+        (this.fromFri = this.fromSun), (this.toFri = this.toSun);
+        (this.fromSat = this.fromSun), (this.toSat = this.toSun);
       }
-},
-
-editValue(from, to) {
+    },
+    editValue(from, to) {
       if (from && to) {
         from = from;
         to = to;
@@ -114,7 +112,6 @@ editValue(from, to) {
     },
   },
 
-
   data() {
     return {
       fromSun: "",
@@ -131,10 +128,10 @@ editValue(from, to) {
       toFri: "",
       fromSat: "",
       toSat: "",
+
+      bool: false,
     };
   },
-
-
 };
 </script>
 <style>
@@ -165,7 +162,7 @@ body {
 }
 .apply {
   display: flex;
-  margin: 0 0 0 12%;
+  margin: 0 0 0 20%;
 }
 .header-cont {
   display: flex;
@@ -245,5 +242,9 @@ body {
 }
 .dayBox p {
   width: 60px;
+}
+.applyAll{
+    width: 110px;
+    height: 40px;
 }
 </style>
