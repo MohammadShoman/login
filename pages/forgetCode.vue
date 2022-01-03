@@ -4,23 +4,28 @@
       <p class="codeSent">
         The code has been sent to {{ " *******" + getPhoneNumber.slice(7, 10) }}
       </p>
-      <p>resend code in {{ timerCount }}</p>
+      <b-button class="resnd" @click="hidden" v-if="show || timerCount <= 0"
+        >resend</b-button
+      >
+      <p v-if="showTimer && timerCount">resend code in {{ timerCount }}</p>
       <b-input-group class="userName">
         <b-form-input
-        type="number"
+          type="text"
           v-model="code"
           id="inline-form-input-username"
           placeholder="code here"
-          maxlength="20"
+          maxlength="6"
         ></b-form-input>
       </b-input-group>
-      
-      <b-button :disabled="code.length<6" @click.prevent="forget2" class="btn" variant="primary"
+
+      <b-button
+        :disabled="code.length < 6"
+        @click.prevent="forget2"
+        class="btn"
+        variant="primary"
         >Check</b-button
       >
-      <b-button class="resnd" @click="hidden" v-if="show || timerCount == 0"
-        >resend</b-button
-      >
+
       <p v-if="showMessage" style="color: red">{{ getForgetMessage }}</p>
     </b-form>
   </div>
@@ -34,8 +39,9 @@ export default {
       code: "",
       show: false,
       clicked: false,
-      timerCount: 60,
-      showMessage:false,
+      timerCount: 100000000000,
+      showMessage: false,
+      showTimer: false,
     };
   },
   computed: {
@@ -47,6 +53,14 @@ export default {
     },
   },
   methods: {
+    countDownTimer() {
+      if (this.timerCount > 0) {
+        setTimeout(() => {
+          this.timerCount -= 1;
+          this.countDownTimer();
+        }, 1000);
+      }
+    },
     forget2() {
       this.$store
         .dispatch("forget2", {
@@ -54,25 +68,23 @@ export default {
         })
         .then((success) => {
           console.log(success);
-          
+          this.showMessage = true;
         })
         .catch((err) => {
           console.log(err);
-          this.showMessage=true;
+          this.showMessage = true;
         });
-        
-      setTimeout(() => {
-        this.show = true;
-      }, 60000);
+
       this.clicked = true;
       this.timerCount = 60;
-      
+      this.showTimer = true;
     },
 
     hidden() {
       this.show = false;
       this.timerCount = 60;
-      console.log( this.$store.getters.getUsername,"opopopopo");
+      this.countDownTimer();
+      console.log(this.$store.getters.getUsername, "opopopopo");
       this.$store
         .dispatch("forgetPassword", {
           username: this.$store.getters.getUsername,
@@ -85,17 +97,8 @@ export default {
         });
     },
   },
-  watch: {
-    timerCount: {
-      handler(value) {
-        if (value > 0) {
-          setTimeout(() => {
-            this.timerCount = this.timerCount - 1;
-          }, 1000);
-        }
-      },
-      immediate: true,
-    },
+  created() {
+    this.countDownTimer();
   },
 };
 </script>
@@ -120,9 +123,13 @@ export default {
   margin-top: 25px;
 }
 .resnd {
-  margin-top: 2%;
+  margin: 2% 0 2% 0;
 }
-.codeSent{
-  margin-top:50px;
+.codeSent {
+  margin-top: 50px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
 }
 </style>

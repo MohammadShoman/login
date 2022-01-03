@@ -1,6 +1,6 @@
 <template>
   <div class="form-container sign-in-container">
-    <form action="#">
+    <form action="#" @submit.prevent="login">
       <h1>Sign in</h1>
       <div class="social-container">
         <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -23,14 +23,22 @@
       />
       <a href="/forgotPassword">Forgot your password?</a>
       <button
-        @click.prevent="login"
-        :disabled="disabledBtn()"
         class="second-button"
       >
         Sign In
       </button>
       <p v-if="showMessage" style="color: red">{{ getMessage }}</p>
     </form>
+    <!-- <b-form  @submit.stop.prevent>
+      <label for="feedback-user">User ID</label>
+      <b-form-input v-model="userId" :state="validation" id="feedback-user"></b-form-input>
+      <b-form-invalid-feedback :state="validation">
+        Your user ID must be 5-12 characters long.
+      </b-form-invalid-feedback>
+      <b-form-valid-feedback :state="validation">
+        Looks Good.
+      </b-form-valid-feedback>
+     </b-form> -->
   </div>
 </template>
 <script>
@@ -42,6 +50,7 @@ export default {
       username: "",
       password: "",
       showMessage: false,
+      //  userId: ''
     };
   },
   methods: {
@@ -72,6 +81,9 @@ export default {
     getMessage() {
       return this.$store.getters.getMessage;
     },
+    // validation() {
+    //     return this.userId.length > 4 && this.userId.length < 13
+    //   }
   },
 };
 </script>
